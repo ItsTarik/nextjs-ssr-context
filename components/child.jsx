@@ -1,25 +1,26 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
 
 export class Child extends React.Component {
-  static contextTypes = { registerComponent: PropTypes.func }
+  static contextTypes = { registerComponent: PropTypes.func };
 
-  constructor (props) {
-    super(props)
-
-    console.log("constructor", props, this.context)
-
-    // this.context.registerComponent(props.id)
-  }
-
-  componentDidMount () {
-    console.log("componentDidMount", this.props, this.context)
-    this.context.registerComponent(this.props.id)
-  }
-
-  render () {
-    return <div id={ this.props.id } />
+  render() {
+    return (
+      <Fragment>
+        <Head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ids = window.ids ? [...window.ids, ${
+                this.props.id
+              }] : [${this.props.id}]`,
+            }}
+          />
+        </Head>
+        <div id={this.props.id} />
+      </Fragment>
+    );
   }
 }
 
-export default Child
+export default Child;
