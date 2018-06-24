@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 export class Child extends React.Component {
-  static contextTypes = { registerComponent: PropTypes.func };
-
+  registerComponent = (id) => `
+    if (window.ids) {
+      window.ids = [...window.ids, ${id}];
+    } else window.ids = [${id}];
+  `;
   render() {
     return (
       <Fragment>
         <Head>
           <script
+            className="track"
             dangerouslySetInnerHTML={{
-              __html: `window.ids = window.ids ? [...window.ids, ${
-                this.props.id
-              }] : [${this.props.id}]`,
+              __html: `${this.registerComponent(this.props.id)}`,
             }}
           />
         </Head>
