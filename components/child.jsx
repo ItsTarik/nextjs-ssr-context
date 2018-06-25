@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 export class Child extends React.Component {
+  componentDidMount() {
+    // making sure that the component is hydrated
+    console.log('mounted....');
+  }
   render() {
     return (
       <Fragment>

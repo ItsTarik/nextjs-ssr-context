@@ -2,7 +2,6 @@
 // Event handlers like onClick can't be added to this file
 // ./pages/_document.js
 
-import NextApp, { Container } from 'next/app';
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 
@@ -16,7 +15,7 @@ export default class MyDocument extends Document {
     );
     console.log('idsFromHead', idsFromHead);
     return (
-      <Container>
+      <html>
         <Head>
           <script
             dangerouslySetInnerHTML={{
@@ -24,9 +23,12 @@ export default class MyDocument extends Document {
             }}
           />
         </Head>
-        <h3>{idsFromHead}</h3>
-        <Main />
-      </Container>
+        <body className="custom_class">
+          <h3>{idsFromHead}</h3>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
     );
   }
 }
